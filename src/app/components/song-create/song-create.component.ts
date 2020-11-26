@@ -1,19 +1,15 @@
-
-
 import { Component, OnInit } from '@angular/core';
 
 import { HttpEventType, HttpResponse, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-
 @Component({
   selector: 'app-song-create',
   templateUrl: './song-create.component.html',
-  styleUrls: ['./song-create.component.css']
+  styleUrls: ['./song-create.component.css'],
 })
 export class SongCreateComponent implements OnInit {
-  constructor(private httpClient: HttpClient) { }
-
+  constructor(private httpClient: HttpClient) {}
 
   songs: any = [];
 
@@ -40,25 +36,29 @@ export class SongCreateComponent implements OnInit {
 
     //FormData API provides methods and properties to allow us easily prepare form data to be sent with POST HTTP requests.
     const uploadImageData = new FormData();
-    uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
+    uploadImageData.append(
+      'imageFile',
+      this.selectedFile,
+      this.selectedFile.name
+    );
 
     //Make a call to the Spring Boot Application to save the image
-    this.httpClient.post('http://localhost:8080/songs/create', uploadImageData, { observe: 'response' })
+    this.httpClient.post('http://localhost:8080/songs/create', uploadImageData, {
+        observe: 'response',
+      })
       .subscribe((response) => {
         if (response.status === 200) {
           this.getAllImg();
         } else {
         }
-      }
-      );
-
-
+      });
   }
 
-      getAllImg(){
-        this.httpClient.get('http://localhost:8080/songs/getFile').subscribe(
-          res => {
-                 this.songs = res
-                })
-      }
+  getAllImg() {
+    this.httpClient
+      .get('http://localhost:8080/songs/getFile')
+      .subscribe((res) => {
+        this.songs = res;
+      });
+  }
 }
