@@ -1,0 +1,47 @@
+<div class="container row">
+  <div class="col-md-12">
+      <h1>Upload Image</h1>
+  </div>
+</div>
+<div class="container row">
+  <div class="col-md-6">
+      <input type="file" (change)="onFileChanged($event)">
+
+  </div>
+  <div class="col-md-6">
+      <input type="button" (click)="onUpload()" value="upload" class="btn btn-primary">
+  </div>
+</div>
+<hr />
+<div class="container row">
+  <div class="col-md-12">
+      <div *ngIf=message>{{message}}</div>
+  </div>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Audio</th>
+    </tr>
+  </thead>
+    <tr *ngFor="let song of songs">
+      <th scope="row">{{song.id}}</th>
+      <td>
+        <audio controls>
+          <source src="{{song.linkMp3}}" type="audio/mpeg">
+
+        Your browser does not support the audio element.
+        </audio>
+
+      </td>
+    </tr>
+</table>
+<div class="container row">
+  <div class="col-md-12">
+      <div *ngIf=retrievedImage>
+          <img [src]="retrievedImage">
+      </div>
+  </div>
+</div>
