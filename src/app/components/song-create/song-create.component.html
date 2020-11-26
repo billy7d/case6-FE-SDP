@@ -11,28 +11,36 @@
 </div>
 
 <div>
-  <label for="Name"></label>
+  <label for="name">Name</label>
   <input type="text" [(ngModel)]="song.name" name="name" />
 </div>
 <div>
-  <label for="Name"></label>
+  <label for="album">Album</label>
   <input type="text" [(ngModel)]="song.album" name="album" />
 </div>
 <div>
-  <label for="Name"></label>
+  <label for="creator">Creator</label>
+  <input type="text" [(ngModel)]="song.creator" name="creator" />
+</div>
+<div>
+  <label for="author">Author</label>
   <input type="text" [(ngModel)]="song.author" name="author" />
 </div>
 <div>
-  <label for="Name"></label>
+  <label for="musicType">Music Type</label>
   <input type="text" [(ngModel)]="song.musicType" name="musicType" />
+</div>
+<div>
+  <label for="musicType">Description</label>
+  <input type="text" [(ngModel)]="song.description" name="description" />
 </div>
 
 <div>
   <div>
-    <input type="file" (change)="onFileChanged($event)" />
+    <input type="file" (change)="onFileChanged($event)"/>
   </div>
   <div>
-  <button type="button" (click)="createSong()">Save</button>
+  <button type="button" (click)="createSong()" [disabled]="showButton">Save</button>
   </div>
 </div>
 
@@ -48,7 +56,7 @@
       <th>Album</th>
       <th>Author</th>
       <th>Music Type</th>
-      <th>Album</th>
+
     </tr>
   </thead>
   <tr *ngFor="let song of songs">

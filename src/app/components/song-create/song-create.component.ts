@@ -12,13 +12,15 @@ export class SongCreateComponent implements OnInit {
   constructor(private httpClient: HttpClient) {}
 
   songs: any = [];
-  song:any={
-    name:'',
-    album:'',
-    author:'',
-    musicType:'',
-    linkMp3:""
-  }
+  song: any = {
+    name: '',
+    album: '',
+    author: '',
+    creator:'',
+    musicType: '',
+    description:'',
+    link: '',
+  };
 
   selectedFile: File;
   retrievedImage: any;
@@ -27,22 +29,17 @@ export class SongCreateComponent implements OnInit {
   message: string;
   imageName: any;
 
-
+  showButton: boolean = true;
 
   ngOnInit(): void {
-    this.getAllImg();
+    this.getAllSong();
   }
 
-  getAllImg() {
-    this.httpClient
-      .get('http://localhost:8080/songs')
-      .subscribe((res) => {
-
-        this.songs= res;
-      });
+  getAllSong() {
+    this.httpClient.get('http://localhost:8080/songs').subscribe((res) => {
+      this.songs = res;
+    });
   }
-
-
 
   //Gets called when the user clicks on submit to upload the image
   onFileChanged(event) {
@@ -52,42 +49,28 @@ export class SongCreateComponent implements OnInit {
     uploadImageData.append(
       'imageFile',
       this.selectedFile,
-      this.selectedFile.name,
-
+      this.selectedFile.name
     );
-     //Make a call to the Spring Boot Application to save the image
-    this.httpClient.post('http://localhost:8080/songs/uploadMp3', uploadImageData, {
-        observe: 'response'
+    //Make a call to the Spring Boot Application to save the image
+    this.httpClient
+      .post('http://localhost:8080/songs/uploadmp3', uploadImageData, {
+        observe: 'response',
       })
-      .subscribe((response) => {
-        if (response.status === 200) {
-
-debugger
-
-
-        } else {
-
-        }
-      });
-  }
-
-  getLastSongOfList() {
-    this.httpClient
-      .get('http://localhost:8080/songs/getlastsong')
       .subscribe((res) => {
-        debugger
-        this.song = res;
-      });
+        if (res.status === 200) {
+          debugger;
+          this.song.link = res.body.linkMp3;
+          this.showButton = false;
+        }
+      }),((err) =>{});
   }
 
-
-  createSong(){
+  createSong() {
     this.httpClient
-    .post('http://localhost:8080/songs/create',this.song)
-    .subscribe((res) => {
-      debugger
-      this.songs = res;
-      this.getAllImg();
-    });
+      .post('http://localhost:8080/songs/create', this.song)
+      .subscribe((res) => {
+        debugger;
+        this.getAllSong();
+      });
   }
 }
