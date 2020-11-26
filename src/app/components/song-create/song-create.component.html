@@ -1,47 +1,74 @@
-<div class="container row">
-  <div class="col-md-12">
-      <h1>Upload Image</h1>
-  </div>
-</div>
-<div class="container row">
-  <div class="col-md-6">
-      <input type="file" (change)="onFileChanged($event)">
-
-  </div>
-  <div class="col-md-6">
-      <input type="button" (click)="onUpload()" value="upload" class="btn btn-primary">
-  </div>
-</div>
-<hr />
-<div class="container row">
-  <div class="col-md-12">
-      <div *ngIf=message>{{message}}</div>
+<div>
+  <div>
+    <div *ngIf="message">{{ message }}</div>
   </div>
 </div>
 
-<table class="table">
+<div>
+  <div>
+    <h1>Upload Image</h1>
+  </div>
+</div>
+
+<div>
+  <label for="Name"></label>
+  <input type="text" [(ngModel)]="song.name" name="name" />
+</div>
+<div>
+  <label for="Name"></label>
+  <input type="text" [(ngModel)]="song.album" name="album" />
+</div>
+<div>
+  <label for="Name"></label>
+  <input type="text" [(ngModel)]="song.author" name="author" />
+</div>
+<div>
+  <label for="Name"></label>
+  <input type="text" [(ngModel)]="song.musicType" name="musicType" />
+</div>
+
+<div>
+  <div>
+    <input type="file" (change)="onFileChanged($event)" />
+  </div>
+  <div>
+  <button type="button" (click)="createSong()">Save</button>
+  </div>
+</div>
+
+
+<hr/>
+
+<table border="1">
   <thead>
     <tr>
-      <th scope="col">Id</th>
-      <th scope="col">Audio</th>
+      <th>Id</th>
+      <th>Audio</th>
+      <th>Name</th>
+      <th>Album</th>
+      <th>Author</th>
+      <th>Music Type</th>
+      <th>Album</th>
     </tr>
   </thead>
-    <tr *ngFor="let song of songs">
-      <th scope="row">{{song.id}}</th>
-      <td>
-        <audio controls>
-          <source src="{{song.linkMp3}}" type="audio/mpeg">
-
+  <tr *ngFor="let song of songs">
+    <th scope="row">{{ song.id }}</th>
+    <td>
+      <audio controls>
+        <source src="{{ song.linkMp3 }}" type="audio/mpeg" />
         Your browser does not support the audio element.
-        </audio>
-
-      </td>
-    </tr>
+      </audio>
+    </td>
+    <td scope="row">{{ song.name }}</td>
+    <td scope="row">{{ song.album }}</td>
+    <td scope="row">{{ song.author }}</td>
+    <td scope="row">{{ song.musicType }}</td>
+  </tr>
 </table>
 <div class="container row">
   <div class="col-md-12">
-      <div *ngIf=retrievedImage>
-          <img [src]="retrievedImage">
-      </div>
+    <div *ngIf="retrievedImage">
+      <img [src]="retrievedImage" />
+    </div>
   </div>
 </div>
