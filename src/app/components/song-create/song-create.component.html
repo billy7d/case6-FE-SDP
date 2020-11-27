@@ -30,6 +30,14 @@
   <label for="musicType">Music Type</label>
   <input type="text" [(ngModel)]="song.musicType" name="musicType" />
 </div>
+
+<div>
+  <label class="sbw_light">Singer</label><br />
+  <select [(ngModel)]="song.singerValues" multiple>
+     <option *ngFor="let singer of singers" [value]="singer.id">{{singer.name}}</option>
+  </select>
+</div>
+
 <div>
   <label for="musicType">Description</label>
   <input type="text" [(ngModel)]="song.description" name="description" />
